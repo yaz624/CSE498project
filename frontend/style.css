@@ -1,0 +1,66 @@
+/* frontend/style.css */
+body {
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+  
+  h1, h2 {
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  .input-area,
+  .result-area,
+  .feedback-area {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  input[type="number"],
+  select,
+  textarea {
+    width: calc(100% - 150px);
+    padding: 6px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  #resultContainer img {
+    width: 100%;
+    max-width: 800px; /* 例如限制最大宽度为 800px，可根据需要调整 */
+    height: auto;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+  }

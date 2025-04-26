@@ -54,24 +54,35 @@ class PixelDataset(Dataset):
                     print(f"Warning: File not found: {full_path}. Skipping this sample.")
         print(f"Total valid samples: {len(self.samples)}")
 
+    # def parse_label(self, values):
+    #     """
+    #     将 5 个数字 [v1, v2, v3, v4, v5] 转换为 3 类标签：
+    #       - 如果 v1 == 1，则返回 0（角色）
+    #       - 否则如果 v2 == 1，则返回 1（monster）
+    #       - 否则如果 v3 == 1 或 v4 == 1，则返回 2（物品）
+    #       - 否则返回 2
+    #     """
+    #     v1, v2, v3, v4, _ = values[:5]
+    #     if v1 == 1.0:
+    #         return 0  # 角色
+    #     elif v2 == 1.0:
+    #         return 1  # monster
+    #     elif v3 == 1.0 or v4 == 1.0:
+    #         return 2  # 物品
+    #     else:
+    #         return 2
     def parse_label(self, values):
-        """
-        将 5 个数字 [v1, v2, v3, v4, v5] 转换为 3 类标签：
-          - 如果 v1 == 1，则返回 0（角色）
-          - 否则如果 v2 == 1，则返回 1（monster）
-          - 否则如果 v3 == 1 或 v4 == 1，则返回 2（物品）
-          - 否则返回 2
-        """
         v1, v2, v3, v4, _ = values[:5]
         if v1 == 1.0:
-            return 0  # 角色
+            return 0  # 人物
         elif v2 == 1.0:
-            return 1  # monster
-        elif v3 == 1.0 or v4 == 1.0:
+            return 1  # 怪物
+        elif v3 == 1.0:
             return 2  # 物品
+        elif v4 == 1.0:
+            return 3  # 装备
         else:
-            return 2
-
+            return None
     def __len__(self):
         return len(self.samples)
 
@@ -82,6 +93,6 @@ class PixelDataset(Dataset):
         if self.transform:
             img = self.transform(img)
         # 转换标签为 one-hot 向量（3 维），例如:
-        one_hot_label = torch.zeros(3, dtype=torch.float32)
+        one_hot_label = torch.zeros(4, dtype=torch.float32)
         one_hot_label[int_label] = 1.0
         return img, one_hot_label

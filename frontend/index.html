@@ -1,50 +1,51 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>像素风格角色生成器</title>
-  <link rel="stylesheet" href="style.css">
+  <title>CSE & DSCI498 Final Project - Yankai Zhao & Wenqi Liu</title>
+  <link rel="stylesheet" href="/frontend/static/style.css">
 </head>
 <body>
   <div class="container">
-    <h1>像素风格角色生成器</h1>
-    <div class="input-area">
-      <label for="characterType">角色类型：</label>
-      <select id="characterType">
-        <option value="monster">怪物</option>
-        <option value="human">人类</option>
-        <option value="animal">动物</option>
-      </select>
-      
-      <label for="colorTheme">颜色主题：</label>
-      <select id="colorTheme">
-        <option value="random">随机</option>
-        <option value="red">红色</option>
-        <option value="blue">蓝色</option>
-        <option value="green">绿色</option>
-      </select>
-      
-      <label for="seedInput">随机种子：</label>
-      <input type="number" id="seedInput" placeholder="可选">
-      
-      <button id="generateButton">生成角色</button>
+    <h1>Pixel-style Character Generator</h1>
+    <div class="decorations">
+      <img src="/frontend/static/sword.png" alt="Pixel Sword" class="decoration">
+      <img src="/frontend/static/mashroom.png" alt="Pixel Tree" class="decoration">
+      <img src="/frontend/static/image_2.png" alt="Pixel Tree" class="decoration">
+      <img src="/frontend/static/image_93.png" alt="Pixel Tree" class="decoration">
+      <img src="/frontend/static/image_421.png" alt="Pixel Tree" class="decoration">
     </div>
+    <div class="input-area">
+      <label for="characterType">Type:</label>
+      <select id="characterType">
+        <option value="monster">Monster</option>
+        <option value="human">Human</option>
+        <option value="item">Item</option>
+        <option value="equipment">Equipment</option>
+      </select>
+
+      <label for="seedInput">Random Seed:</label>
+      <input type="number" id="seedInput" placeholder="Example: 123 or 456">
+
+      <button id="generateButton">Generate Character</button>
+    </div>
+
     
     <div class="result-area">
-      <h2>生成结果</h2>
-      <div id="loadingMessage" style="display:none;">请稍候，生成中…</div>
-      <div id="resultContainer">
-        <!-- 生成的图片将在这里展示 -->
-      </div>
-      <button id="regenerateButton" style="display:none;">重新生成</button>
+      <h2>Result</h2>
+      <div id="loadingMessage" style="display:none;">Generating, please wait...</div>
+      <div id="resultContainer"></div>
+      <button id="regenerateButton" style="display:none;">Regenerate</button>
     </div>
-    
+
     <div class="feedback-area">
-      <h2>反馈</h2>
-      <textarea id="feedbackText" placeholder="留下你的建议"></textarea>
-      <button id="submitFeedback">提交反馈</button>
+      <h2>Feedback</h2>
+      <textarea id="feedbackText" placeholder="Leave your suggestions here"></textarea>
+      <button id="submitFeedback">Submit Feedback</button>
     </div>
+
   </div>
-  <script src="js/app.js"></script>
+
+  <script src="/frontend/js/app.js"></script>
 </body>
 </html>

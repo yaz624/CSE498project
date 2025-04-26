@@ -2,35 +2,27 @@ import torch
 import torch.nn as nn
 
 class Generator(nn.Module):
-    def __init__(self, latent_dim: int, n_classes: int, output_size: int) -> None:
-        """
-        Args:
-            latent_dim: 噪声向量维度
-            n_classes: 条件类别数（3：monster, human, prop）
-            output_size: 输出图像展平后元素数量（例如 3 * 16 * 16）
-        """
+    def __init__(self, latent_dim: int, n_classes: int, img_size: int = 16):
         super().__init__()
-        # 条件嵌入：将 n_classes (one-hot向量) 转为 10 维嵌入向量
-        self.cond_embed = nn.Linear(n_classes, 10)
-        # 拼接后输入维度
+        self.img_size = img_size
+        self.label_emb = nn.Linear(n_classes, 10)  # 条件嵌入为10维
         input_dim = latent_dim + 10
 
         self.model = nn.Sequential(
-            nn.Linear(input_dim, 512),
-            nn.LeakyReLU(0.2),
-            nn.Linear(512, 1024),
-            nn.LeakyReLU(0.2),
-            nn.Linear(1024, 2048),
-            nn.LeakyReLU(0.2),
-            nn.Linear(2048, 1024),
-            nn.LeakyReLU(0.2),
-            nn.Linear(1024, output_size),
+            nn.Linear(input_dim, 128 * (img_size // 4) * (img_size // 4)),
+            nn.BatchNorm1d(128 * (img_size // 4) * (img_size // 4)),
+            nn.ReLU(True),
+            nn.Unflatten(1, (128, img_size // 4, img_size // 4)),
+
+            nn.ConvTranspose2d(128, 64, 4, 2, 1),  # -> (64, img_size/2, img_size/2)
+            nn.BatchNorm2d(64),
+            nn.ReLU(True),
+
+            nn.ConvTranspose2d(64, 3, 4, 2, 1),  # -> (3, img_size, img_size)
             nn.Tanh()
         )
-    
-    def forward(self, noise: torch.Tensor, condition: torch.Tensor) -> torch.Tensor:
-        # condition: [batch, n_classes] (one-hot float)
-        cond_emb = self.cond_embed(condition)  # [batch, 10]
-        x = torch.cat((noise, cond_emb), dim=1)  # [batch, latent_dim + 10]
-        out = self.model(x)
-        return out.view(x.size(0), 3, 16, 16)
+
+    def forward(self, noise, labels):
+        label_embed = self.label_emb(labels)
+        x = torch.cat((noise, label_embed), dim=1)
+        return self.model(x)

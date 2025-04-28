@@ -3,3 +3,4 @@ torch
 gspread
 oauth2client
 Pillow
+torchvision

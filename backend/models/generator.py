@@ -5,7 +5,7 @@ class Generator(nn.Module):
     def __init__(self, latent_dim: int, n_classes: int, img_size: int = 16):
         super().__init__()
         self.img_size = img_size
-        self.label_emb = nn.Linear(n_classes, 10)  # 条件嵌入为10维
+        self.label_emb = nn.Linear(n_classes, 10) 
         input_dim = latent_dim + 10
 
         self.model = nn.Sequential(

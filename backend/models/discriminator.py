@@ -8,7 +8,7 @@ class Discriminator(nn.Module):
         self.img_size = img_size
 
         self.model = nn.Sequential(
-            nn.Conv2d(4, 64, 4, 2, 1),  # 输入为3通道图像 + 1通道标签图
+            nn.Conv2d(4, 64, 4, 2, 1),  
             nn.LeakyReLU(0.2, inplace=True),
 
             nn.Conv2d(64, 128, 4, 2, 1),

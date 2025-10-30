@@ -1,6 +1,5 @@
 # Pixel-style Character Generator based on DCGAN
 
-================================
 
 Authors:
 --------
